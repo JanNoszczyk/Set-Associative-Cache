@@ -1,7 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
 from set_associative_cache.linked_list import Node, HashedLinkedList
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 class Cache(ABC):

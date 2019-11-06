@@ -44,7 +44,9 @@ Custom replacement algorithms should be defined as functions implementing a cust
 
 The input `current_set` is the Cache set from which a node should be removed. It is of type *HashedLinkedList*, which 
 implements a doubly linked list with dummy `head` and `tail` nodes. It also has a hashtable `dic` storing references to 
-all nodes in the linked list for quick access. It also has methods: `remove` which removes a specified node from the 
+all nodes in the linked list for quick access. 
+
+The linked list also has methods: `remove` which removes a specified node from the 
 linked list, and `add` which adds a node at the end of the linked list.
 
 Each *Node* object has attributes `key`, `value`, as well as `next` and `prev` linking it to other nodes.
