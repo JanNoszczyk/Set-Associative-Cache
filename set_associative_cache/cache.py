@@ -6,7 +6,8 @@ def create_new_cache(size: int, number_of_ways: int, strategy: str = 'LRU', repl
     Creates a new Cache object that uses the specified node replacement strategy.
     :param size: The total number of cache entries
     :param number_of_ways: Number of cache entries per set
-    :param strategy: Strategy to remove an entry from the cache set after its size limit has been exceeded
+    :param strategy: Strategy to remove an entry from the cache set after its size limit has been exceeded.
+    It can be either 'LRU', 'MRU' or 'custom'.
     :param replacement_algorithm: User defined node replacement method (Only used when strategy='custom')
     :return: Cache object for the specified replacement strategy
     """

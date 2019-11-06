@@ -20,7 +20,7 @@ class Cache(ABC):
         self.key_type = None
         self.value_type = None
 
-    def put(self, key, value):
+    def set(self, key, value):
         """
         Adds a new entry to the cache.
         :param key: key of the entry to be inserted
@@ -30,7 +30,7 @@ class Cache(ABC):
             # Set the default key and value type the same as that of the first cache input
             self.key_type = type(key)
             self.value_type = type(value)
-            logging.info("The default key type is {}, and default value type is {}."
+            logging.debug("The default key type is {}, and default value type is {}."
                          .format(self.key_type, self.value_type))
 
         if type(key) == self.key_type and type(value) == self.value_type:
@@ -48,9 +48,7 @@ class Cache(ABC):
             current_set.add(n)
             # Store the location of the node in a dictionary for quick access
             current_set.dic[key] = n
-
-            logging.info("Successfully inserted the pair ({}, {})".format(key, value))
-
+            logging.debug("Successfully inserted the pair ({}, {})".format(key, value))
         else:
             raise Exception("The types of the key value pair ({}, {}) are different from the default types."
                             .format(key, value))
@@ -71,13 +69,13 @@ class Cache(ABC):
             current_set.add(n)
             return True, n.val
 
-        logging.info("The key {} was not found in cache.".format(key))
+        logging.debug("The key {} was not found in cache.".format(key))
         return False, None
 
     @abstractmethod
     def replace(self, current_set):
         """
-        An abstract method that remove an entry from the cache after cache capacity has been exceeded.
+        An abstract method that removes an entry from the cache after cache capacity has been exceeded.
         :param current_set: The cache set from which an entry is to be deleted
         :type current_set: HashedLinkedList
         """

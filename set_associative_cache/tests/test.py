@@ -29,23 +29,23 @@ class TestCache(TestCase):
         cache = create_new_cache(4, 2, 'LRU')
 
         # Inserting pairs into set 0
-        cache.put(0, '0')
-        cache.put(2, '2')
+        cache.set(0, '0')
+        cache.set(2, '2')
         self.assertEqual(cache.get(0), (True, '0'))
         self.assertEqual(cache.get(2), (True, '2'))
         # After adding new entry, (0, '0') should be replaced as it was LRU
-        cache.put(4, '4')
+        cache.set(4, '4')
         self.assertEqual(cache.get(0), (False, None))
 
         # Inserting pairs into set 1
         self.assertEqual(cache.get(1), (False, None))
-        cache.put(1, 'old')
-        cache.put(1, 'new')
+        cache.set(1, 'old')
+        cache.set(1, 'new')
         self.assertEqual(cache.get(1), (True, 'new'))
-        cache.put(3, '3')
-        cache.put(5, '5')
-        cache.put(7, '7')
-        cache.put(9, '9')
+        cache.set(3, '3')
+        cache.set(5, '5')
+        cache.set(7, '7')
+        cache.set(9, '9')
         # Only the 2 MRU keys 7 and 9 should be present
         self.assertEqual(cache.get(5), (False, None))
         self.assertEqual(cache.get(7), (True, '7'))
@@ -57,21 +57,21 @@ class TestCache(TestCase):
         """
         cache = create_new_cache(4, 2, 'MRU')
 
-        cache.put(0, '0')
-        cache.put(2, '2')
+        cache.set(0, '0')
+        cache.set(2, '2')
         self.assertEqual(cache.get(0), (True, '0'))
         self.assertEqual(cache.get(2), (True, '2'))
         # After adding new entry, (2, '2') should be replaced as it was MRU
-        cache.put(4, '4')
+        cache.set(4, '4')
         self.assertEqual(cache.get(2), (False, None))
 
-        cache.put(1, 'old')
-        cache.put(1, 'new')
+        cache.set(1, 'old')
+        cache.set(1, 'new')
         self.assertEqual(cache.get(1), (True, 'new'))
-        cache.put(3, '3')
-        cache.put(5, '5')
-        cache.put(7, '7')
-        cache.put(9, '9')
+        cache.set(3, '3')
+        cache.set(5, '5')
+        cache.set(7, '7')
+        cache.set(9, '9')
         # All the intermediete keys (3, 5, 7) were replaced by 9
         self.assertEqual(cache.get(1), (True, 'new'))
         self.assertEqual(cache.get(7), (False, None))
@@ -85,11 +85,11 @@ class TestCache(TestCase):
         mru_cache = create_new_cache(2, 2, 'MRU')
 
         # The first input should initialise the cache default (key, value) types to (int, string)
-        lru_cache.put(0, '0')
-        self.assertRaises(Exception, lru_cache.put, 0, 1)
-        self.assertRaises(Exception, lru_cache.put, '0', '1')
-        mru_cache.put(0, '0')
-        self.assertRaises(Exception, mru_cache.put, 0, 1)
+        lru_cache.set(0, '0')
+        self.assertRaises(Exception, lru_cache.set, 0, 1)
+        self.assertRaises(Exception, lru_cache.set, '0', '1')
+        mru_cache.set(0, '0')
+        self.assertRaises(Exception, mru_cache.set, 0, 1)
 
     def test_custom_replacement_algorithm(self):
         """
@@ -103,9 +103,9 @@ class TestCache(TestCase):
 
         cache = create_new_cache(3, 3, 'custom', replacement_algorithm=replacement_algorithm)
         # Note that we need at least 2 entries in a set for this particular strategy to work
-        cache.put(0, '0')
-        cache.put(1, '1')
-        cache.put(2, '2')
+        cache.set(0, '0')
+        cache.set(1, '1')
+        cache.set(2, '2')
         # (1, '1') should be now replaced as it is the 2nd LRU entry
-        cache.put(3, '3')
+        cache.set(3, '3')
         self.assertEqual(cache.get(1), (False, None))
