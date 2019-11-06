@@ -20,7 +20,7 @@ $ pip install .
 ```
 
 ## Usage
-#### Creating a Cache object
+### Creating a Cache object
 The create an object of the Cache class run the create_new_cache method
 
 ```python
@@ -55,7 +55,7 @@ def replacement_algorithm(current_set):
     current_set.remove(lru_node)
     del current_set.dic[lru_node.key]
 ```
-#### Using a Cache object
+### Using a Cache object
 Each Cache object has the following methods
 
 `set(key, value)` Adds a new entry to the cache.
