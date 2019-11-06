@@ -37,11 +37,19 @@ class TestCache(TestCase):
         cache.put(4, '4')
         self.assertEqual(cache.get(0), (False, None))
 
-        # set 0 should still me empty
+        # Inserting pairs into set 1
         self.assertEqual(cache.get(1), (False, None))
         cache.put(1, 'old')
         cache.put(1, 'new')
         self.assertEqual(cache.get(1), (True, 'new'))
+        cache.put(3, '3')
+        cache.put(5, '5')
+        cache.put(7, '7')
+        cache.put(9, '9')
+        # Only the 2 MRU keys 7 and 9 should be present
+        self.assertEqual(cache.get(5), (False, None))
+        self.assertEqual(cache.get(7), (True, '7'))
+        self.assertEqual(cache.get(9), (True, '9'))
 
     def test_MRU_cache_hit_and_miss(self):
         """
@@ -53,19 +61,21 @@ class TestCache(TestCase):
         cache.put(2, '2')
         self.assertEqual(cache.get(0), (True, '0'))
         self.assertEqual(cache.get(2), (True, '2'))
-        cache.print_contents()
         # After adding new entry, (2, '2') should be replaced as it was MRU
         cache.put(4, '4')
-        cache.put(2, '4')
-        cache.put(5, '4')
-        cache.put(6, '4')
-        cache.print_contents()
-        # self.assertEqual(cache.get(2), (False, None))
+        self.assertEqual(cache.get(2), (False, None))
 
         cache.put(1, 'old')
         cache.put(1, 'new')
-        cache.print_contents()
-        # self.assertEqual(cache.get(1), (True, 'old'))
+        self.assertEqual(cache.get(1), (True, 'new'))
+        cache.put(3, '3')
+        cache.put(5, '5')
+        cache.put(7, '7')
+        cache.put(9, '9')
+        # All the intermediete keys (3, 5, 7) were replaced by 9
+        self.assertEqual(cache.get(1), (True, 'new'))
+        self.assertEqual(cache.get(7), (False, None))
+        self.assertEqual(cache.get(9), (True, '9'))
 
     def test_wrong_key_value_type(self):
         """

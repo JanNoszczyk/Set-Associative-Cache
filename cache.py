@@ -1,17 +1,17 @@
-import logging
 from cache_implementations import LRUCache, MRUCache, CustomCache
 
 
 def create_new_cache(size: int, number_of_ways: int, strategy: str = 'LRU', replacement_algorithm=None) -> object:
     """
-
-    :param size:
-    :param number_of_ways:
-    :param strategy:
-    :param replacement_algorithm:
-    :return:
+    Creates a new Cache object that uses the specified node replacement strategy.
+    :param size: The total number of cache entries
+    :param number_of_ways: Number of cache entries per set
+    :param strategy: Strategy to remove an entry from the cache set after its size limit has been exceeded
+    :param replacement_algorithm: User defined node replacement method (Only used when strategy='custom')
+    :return: Cache object for the specified replacement strategy
     """
     if size % number_of_ways == 0:
+        # The number of ways (entries per cache set) needs to be a multiple of the cache size
         if strategy == 'LRU':
             return LRUCache(size, number_of_ways)
         elif strategy == 'MRU':
