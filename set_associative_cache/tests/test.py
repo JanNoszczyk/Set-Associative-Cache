@@ -1,6 +1,6 @@
 from unittest import TestCase
-from cache import create_new_cache
-from cache_implementations import LRUCache, MRUCache, CustomCache
+from set_associative_cache.cache import create_new_cache
+from set_associative_cache.cache_implementations import LRUCache, MRUCache, CustomCache
 
 
 class TestCache(TestCase):

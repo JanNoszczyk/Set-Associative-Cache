@@ -1,4 +1,4 @@
-from cache_class import Cache
+from set_associative_cache.cache_class import Cache
 
 
 class LRUCache(Cache):

@@ -1,6 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
-from linked_list import Node, HashedLinkedList
+from set_associative_cache.linked_list import Node, HashedLinkedList
 logging.basicConfig(level=logging.DEBUG)
 
 

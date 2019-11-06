@@ -1,4 +1,4 @@
-from cache_implementations import LRUCache, MRUCache, CustomCache
+from set_associative_cache.cache_implementations import LRUCache, MRUCache, CustomCache
 
 
 def create_new_cache(size: int, number_of_ways: int, strategy: str = 'LRU', replacement_algorithm=None) -> object:
